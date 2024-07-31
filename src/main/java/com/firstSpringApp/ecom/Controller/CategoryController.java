@@ -3,10 +3,7 @@ package com.firstSpringApp.ecom.Controller;
 
 import com.firstSpringApp.ecom.Model.Category;
 import com.firstSpringApp.ecom.Service.CategoryService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
@@ -27,6 +24,11 @@ public class CategoryController {
     public String createCatogory(@RequestBody Category category){
         categoryService.createCategory(category);
         return "Category Added Successfully";
+    }
+
+    @DeleteMapping("/api/admin/categories/{categoryId}")
+    public String deleteCategory(@PathVariable Long categoryId){
+        return categoryService.deleteCategory(categoryId);
     }
 
 }
