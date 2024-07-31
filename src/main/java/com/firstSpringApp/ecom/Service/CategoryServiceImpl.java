@@ -1,6 +1,8 @@
 package com.firstSpringApp.ecom.Service;
 import com.firstSpringApp.ecom.Model.Category;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
 @Service
@@ -24,7 +26,7 @@ public class CategoryServiceImpl implements CategoryService{
     public String deleteCategory(Long categoryId) {
         Category category = categoryList.stream()
                 .filter(c -> c.getCategoryId().equals(categoryId))
-                .findFirst().get();
+                .findFirst().orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Resource Not found"));
         categoryList.remove(category);
         return "Category with CategoryId "+ categoryId + " deleted Successfully";
     }
