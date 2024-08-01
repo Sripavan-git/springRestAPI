@@ -30,6 +30,17 @@ public class CategoryController {
         return new ResponseEntity<>("Category Created Successfully",HttpStatus.CREATED);
     }
 
+    @PutMapping("/api/admin/categories/{id}")
+    public ResponseEntity<String> updateCategory(@RequestBody Category category, @PathVariable Long id){
+        try{
+            Category savedCategory = categoryService.updateCategory(category,id);
+            return new ResponseEntity<>("Updated Category with Id " + id,HttpStatus.OK);
+        }
+        catch (ResponseStatusException e){
+            return new ResponseEntity<>(e.getReason(), e.getStatusCode());
+        }
+    }
+
     @DeleteMapping("/api/admin/categories/{categoryId}")
     public ResponseEntity<String> deleteCategory(@PathVariable Long categoryId){
         // adding ResponseEntity to success and error messages and wrapping them under the ResponseEntity
