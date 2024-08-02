@@ -12,20 +12,20 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.*;
 
 @RestController
-// We can add the common part of the ENDPOINT in the API here so that it can embed in all the API's across the class
 @RequestMapping("/api")
+//We can add the common part of the ENDPOINT in the API here so that it can embed in all the API's across the class
 public class CategoryController {
 
 
-    // instead of assigning it using the constructor we can use autowired to instantiate with a Category service instance
+    // instead of assigning it using the constructor we can use autowired to instantiate with the categoryService obj.
     @Autowired
     private CategoryService categoryService;
 
 
 
-    // Instead of Get Mapping we can also use RequestMapping with value and Method params in this way to specify a end point of a HTTP Method
+    // @GetMapping("/public/categories")
+    // Instead of GetMapping we can use RequestMapping and pass the value and method to it specity the type and path of the ENDPOINT
     @RequestMapping(value = "/public/categories", method = RequestMethod.GET)
-    //@GetMapping("/public/categories")
     public ResponseEntity<List<Category>> getCategories(){
         List<Category> categories = categoryService.getAllCategories();
         return new ResponseEntity<>(categories,HttpStatus.OK);
